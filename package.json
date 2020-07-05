@@ -39,6 +39,7 @@
     "gitalk": "^1.5.3",
     "han-css": "^3.3.0",
     "highlight.js": "^9.12.0",
+    "http-server": "^0.12.3",
     "lozad": "^1.6.0",
     "md5": "^2.2.1",
     "node-sass": "^4.9.3",
@@ -65,6 +66,7 @@
   },
   "scripts": {
     "start": "npm run develop",
+    "prod": "http-server -p 8000",
     "build": "gatsby build --prefix-paths",
     "develop": "gatsby develop",
     "develop:remote": "gatsby develop -p 8080 -H 0.0.0.0",
