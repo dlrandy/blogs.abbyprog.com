@@ -1,57 +1,57 @@
 {
-  "url": "https://calpa.me",
+  "url": "https://blogs.abbyprog.com",
   "meta": {
     "favicon": "https://i.imgur.com/PO9Y4fT.jpg",
-    "keyword": "calpa, blog, JavaScript",
-    "description": "Calpa 的技術博客，開發日常，以及遇到的坑",
+    "keyword": "abbyprog, blog, JavaScript",
+    "description": "AbbyProg 的技术博客，开发日常，以及生活日志",
     "theme_color": "#384f7c",
     "google_site_verification": "riZBcestky7i9xY__A-5J-2EE65T75X1u-zgbss37Io"
   },
-  "name": "calpa",
-  "about": "/2018/05/01/about-calpa-liu/",
-  "email": "calpaliu@gmail.com",
+  "name": "Randy",
+  "about": "/2020/07/04/about-randy-chen/",
+  "email": "ziyucrc@gmail.com",
   "stats": {
     "image": "https://i.imgur.com/VjBWiSt.png",
     "title": "過去三十日數據",
     "description": "過去三十日數據"
   },
-  "title": "Calpa 的技術博客",
+  "title": "RandyChen 的博客",
   "gitalk": {
-    "repo": "calpa.github.io",
-    "admin": ["calpa"],
-    "owner": "calpa",
-    "clientID": "18255f031b5e11edd98a",
-    "clientSecret": "2ff6331da9e53f9a91bcc991d38d550c85026714",
+    "repo": "abbyprog.comments",
+    "admin": ["dlrandy"],
+    "owner": "dlrandy",
+    "clientID": "db5b4a3dda18c0347a73",
+    "clientSecret": "69a27caa34f4c02a15b246a4b6487d85b2387a33",
     "pagerDirection": "first",
     "distractionFreeMode": true
   },
-  "License": "by",
+  "License": "MIT",
   "friends": [
     {
-      "href": "https://calpa.me",
-      "title": "Calpa's Blog"
+      "href": "https://kunkun12.com",
+      "title": "KunKun's Blog"
     }
   ],
-  "iconUrl": "https://i.imgur.com/kjt2x52.jpg",
-  "wordings": ["GatsbyJS, ReactJS", "全週期開發者"],
-  "gaTrackId": "UA-84737574-3",
+  "iconUrl": "https://i.imgur.com/f3u5bCA.jpg",
+  "wordings": ["FE", "博客", "阿白"],
+  "gaTrackId": "UA-171604954-1",
   "navbarList": [
     {
       "href": "/guestbook/",
-      "title": "留言簿"
+      "title": "留言"
     },
     {
       "href": "/tags/",
       "title": "Tags"
     },
     {
-      "href": "/2018/05/01/about-calpa-liu/",
-      "title": "關於作者"
+      "href": "/2020/07/04/about-randy-chen/",
+      "title": "关于我"
     }
   ],
   "redirectors": [
     {
-      "toPath": "/2018/05/01/about-calpa-liu/",
+      "toPath": "/2020/07/04/about-randy-chen/",
       "fromPath": "/about/"
     }
   ],
@@ -62,8 +62,8 @@
       "target": "/stats/"
     }
   ],
-  "zhihuUsername": "piao-xue-wu-ying",
-  "githubUsername": "calpa",
+  "zhihuUsername": "abbyprog",
+  "githubUsername": "dlrandy",
   "maxPostsInPage": 10,
-  "facebook": "calpablog"
+  "facebook": "100008325753893"
 }

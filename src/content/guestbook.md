@@ -1,12 +1,12 @@
 ---
 templateKey: blog-post
-id: https://calpa.me/guestbook/
-title: 留言簿
+id: https://blogs.abbyprog.com/guestbook/
+title: 留言
 slug: /guestbook
-date: 2017-01-01T03:48:03.125Z
+date: 2020-07-05T03:48:03.125Z
 description: ""
 tags:
-  - 閱讀
+  - 阅读
 ---
 
-歡迎留言
+欢迎留言

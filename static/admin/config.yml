@@ -97,7 +97,7 @@ collections:
           label: "Slug",
           name: "slug",
           widget: "string",
-          hint: "不填寫的話，就用 yyy-mm-dd-title",
+          hint: "不填写的话，就用 yyy-mm-dd-title",
           required: false,
         }
       - { label: "Title", name: "title", widget: "string" }
@@ -107,7 +107,7 @@ collections:
       - { label: "Header Image", name: "headerImage", widget: "string" }
       - {
           label: "Template Key",
-          hint: "如果你不知道是什麼模板的話，請輸入 blog-post",
+          hint: "不知道什么是模板，请输入 blog-post",
           name: "templateKey",
           widget: "string",
           default: "blog-post",
