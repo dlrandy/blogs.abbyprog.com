@@ -8,8 +8,9 @@ RUN yum -y install git; yum clean all
 COPY id_rsa /root/.ssh/
 RUN ssh-keyscan -t rsa code.aliyun.com > ~/.ssh/known_hosts
 RUN git clone https://github.com/dlrandy/blogs.abbyprog.com.git
-WORKDIR koa-api
+WORKDIR blogs.abbyprog.com
 RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
 RUN cnpm install --only=production > /dev/null
+RUN npm run build
 EXPOSE 8000
 CMD ["npm","run","prod"]
