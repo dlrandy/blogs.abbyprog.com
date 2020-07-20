@@ -18,7 +18,7 @@
   "title": "RandyChen 的博客",
   "gitalk": {
     "repo": "abbyprog.comments",
-    "admin": ["dlrandy"],
+    "admin": "dlrandy",
     "owner": "dlrandy",
     "clientID": "db5b4a3dda18c0347a73",
     "clientSecret": "69a27caa34f4c02a15b246a4b6487d85b2387a33",
