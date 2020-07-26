@@ -18,6 +18,33 @@ tags:
 目标数组使用判重方法检测自己是否含有该项的数据，没有的话就加入到目标数组；
 > bonus: 遍历数组，根据内容生成唯一key，存到set里，添加到目标数组，继续遍历...
 ``` javascript
+const target = [];
+const containTheItem = (item, targetArr, findCallback =  (m) => m.first === member.first && m.last === member.last)) => {
+ return target.find(findCallback)
+}
+const members = [
+  {
+    first: 'Jane',
+    last: 'Bond',
+    id: '10yejma',
+  },
+  {
+    first: 'Lars',
+    last: 'Croft',
+    id: '1hhs0k2',
+  },
+  {
+    first: 'Jane',
+    last: 'Bond',
+    id: '1y15hhu',
+  },
+];
+
+for (const m of members) {
+  if (!containTheItem(target, m)) {
+    target.push(m);
+  }
+}
 
 ```
 ### 方法二
@@ -25,13 +52,21 @@ tags:
 就是重复的；
 > bonus: 过滤不存在set里的数据，每次过滤依据set是否含有这个值
 ``` javascript
+function getIndexOfMember(memberArray, member, indexCallback = (m) => m.first === member.first && m.last === member.last) {
+  return memberArray.findIndex(indexCallback)
+}
 
+members.filter((it, inx, arr)=>{
+  return getIndexOfMember(arr, it))
+})
 ```
 ### 方法三
 > 使用map，因为map的键值唯一，而且map又是一个二维数组。所以根据元素的内容生成唯一的key，元素作为value，
 然后取得map.values()
 ``` javascript
-
+const uniqueMemebers = new Map(
+  members.map(m => [m.first+'\t'+m.last, m])); // [key, value]
+const target = [...uniqueMemebers.values()];
 ```
 
 

@@ -13,6 +13,52 @@ tags:
 ## 记录
 
 ### 关于async 与generator的实现与转换
+``` javascript
+
+async function foo(){
+  await bar();
+}
+
+let foo = (() => {
+  var _ref = _asyncToGenerator(function*(){
+    yield bar();
+  });
+
+  return function foo(){
+    return _ref.apply(this, arguments);
+  };
+})();
+
+function _asyncToGenerator(fn){
+  return function(){
+    var gen = fn.apply(this, arguments);
+    return new Promise(function(resolve, reject){
+      function step(key, arg){
+        try {
+          var info = gen[key](arg);
+          var value = info.value;
+        }catch(error){
+          reject(error);
+          return;
+        }
+        if(info.done){
+          resolve(value);
+        } else {
+          return Promise.resolve(value)
+            .then(function(value){
+              step('next', value);
+            },
+            function(err){
+              step('throw', err);
+            })
+        }
+      }
+
+      return step('next');
+    })
+  }
+}
+```
 
 ### koa  vs  express
 1. 中间件
@@ -37,6 +83,70 @@ tags:
 https://github.com/lodash/lodash/blob/master/get.js#L13
 
 
+
+### koa源码回顾
+``` javascript
+application.js  [response.js, request.js, context.js]
+|
+|
+new Koa()
+|
+|
+koa.use()
+|
+|
+koa.listen
+|
+|
+koa.callback()
+|
+|
+handleRequest()
+|
+|
+onFinished()             --- request done
+|                         ／
+|                       ／
+compose MiddleWare    ／
+|                   ／
+|                 ／
+respond  --->   ／
+```
+### koa小问
+
+#### responsejs和requestjs里的this指的是哪个对象？
+指的是context对象？
+
+#### context文件做了哪些工作？有什么目的？
+他使用了delegator自动设置了一些自身的一些方法，每一个方法
+对应着request对象和response对象里的方法。
+
+#### 怎么从代码角度理解洋葱模型？
+这个模型主要是依赖koa-compose来实现的。koa的中间件执行返回的
+结果都是Promise。也就是每一个next前面都要加上await，如果不是
+使用async的函数，要注意返回数据，否则没有数据给上层。
+koa-compose主要是dispatch方法，
+dispatch(0)
+|
+|
+fn(context, dispatch(n))
+也就是A->B->A;
+
+
+#### 关于request和response和context的几点说明
+每次请求到达的时候，koa.context和koa.request以及
+koa.response都会作为原型。新的context对象上有
+request和response，request和response，是相互引用的。
+它们带有的req和res是原生的node对象。
+
+
+
+
+
+
+
+
+[参考链接](https://hackernoon.com/async-await-generators-promises-51f1a6ceede2)
 ![FYI](https://i.imgur.com/LalbenT.jpg)
 
 
