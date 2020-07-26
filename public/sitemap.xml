@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <url> <loc>https://blogs.abbyprog.com/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://blogs.abbyprog.com/2020/07/24/js-remove-duplicate/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://blogs.abbyprog.com/2020/07/21/koa-source-review/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://blogs.abbyprog.com/2020/07/13/algorithm-intro/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://blogs.abbyprog.com/2020/07/05/README</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://blogs.abbyprog.com/guestbook</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://blogs.abbyprog.com/2020/07/04/about-randy-chen/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://blogs.abbyprog.com/tag/js, set, map, remove duplicate</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://blogs.abbyprog.com/tag/koa, js</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://blogs.abbyprog.com/tag/algorithm</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://blogs.abbyprog.com/tag/阅读</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://blogs.abbyprog.com/tag/信息</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://blogs.abbyprog.com/tags/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>

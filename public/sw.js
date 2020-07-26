@@ -11,10 +11,10 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("workbox-v3.6.3/workbox-sw.js");
-workbox.setConfig({modulePathPrefix: "workbox-v3.6.3"});
+importScripts('workbox-v3.6.3/workbox-sw.js');
+workbox.setConfig({ modulePathPrefix: 'workbox-v3.6.3' });
 
-workbox.core.setCacheNameDetails({prefix: "gatsby-plugin-offline"});
+workbox.core.setCacheNameDetails({ prefix: 'gatsby-plugin-offline' });
 
 workbox.skipWaiting();
 workbox.clientsClaim();
@@ -26,41 +26,44 @@ workbox.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-b601cecd02eadef31953.js"
+    url: 'webpack-runtime-a2db8de0590367fa290b.js',
   },
   {
-    "url": "styles.10d0935a5baef59ea1e5.css"
+    url: 'styles.10d0935a5baef59ea1e5.css',
   },
   {
-    "url": "styles-89fd2ae28bdf06750a71.js"
+    url: 'styles-89fd2ae28bdf06750a71.js',
   },
   {
-    "url": "framework-765e22598f156804c016.js"
+    url: 'framework-376edee25eb5f5cd8260.js',
   },
   {
-    "url": "a9a7754c-228a398a0e087115c323.js"
+    url: 'a9a7754c-ea7f95f2560e49deb002.js',
   },
   {
-    "url": "cb1608f2-e1bccdd61625156f6942.js"
+    url: 'cb1608f2-24ab1df0b89cf7c59aa6.js',
   },
   {
-    "url": "app-72a5dccbc9ba87804c47.js"
+    url: 'app-aea3edceb493ec06caf3.js',
   },
   {
-    "url": "component---node-modules-gatsby-plugin-offline-app-shell-js-04552f9a779bcd544711.js"
+    url: 'component---node-modules-gatsby-plugin-offline-app-shell-js-04552f9a779bcd544711.js',
   },
   {
-    "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "0482047b9a473ba213dee36ebd168ac5"
+    url: 'offline-plugin-app-shell-fallback/index.html',
+    revision: '059a328f0bca08f7af174362849664a3',
   },
   {
-    "url": "manifest.json",
-    "revision": "b773e901ef06ac93343dc05e67540787"
+    url: 'polyfill-9b6a3315453a0666a03f.js',
   },
   {
-    "url": "manifest.webmanifest",
-    "revision": "6aab1d3b5f86c2192080f4731281b5d2"
-  }
+    url: 'manifest.json',
+    revision: 'b773e901ef06ac93343dc05e67540787',
+  },
+  {
+    url: 'manifest.webmanifest',
+    revision: '6aab1d3b5f86c2192080f4731281b5d2',
+  },
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
@@ -72,19 +75,19 @@ workbox.routing.registerRoute(/^https?:\/\/fonts\.googleapis\.com\/css/, workbox
 
 /* global importScripts, workbox, idbKeyval */
 
-importScripts(`idb-keyval-iife.min.js`)
+importScripts('idb-keyval-iife.min.js');
 
-const { NavigationRoute } = workbox.routing
+const { NavigationRoute } = workbox.routing;
 
 const navigationRoute = new NavigationRoute(async ({ event }) => {
-  let { pathname } = new URL(event.request.url)
-  pathname = pathname.replace(new RegExp(`^`), ``)
+  let { pathname } = new URL(event.request.url);
+  pathname = pathname.replace(new RegExp('^'), '');
 
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
-  const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/app-72a5dccbc9ba87804c47.js`))) {
-    return await fetch(event.request)
+  const resources = await idbKeyval.get(`resources:${pathname}`);
+  if (!resources || !(await caches.match('/app-aea3edceb493ec06caf3.js'))) {
+    return await fetch(event.request);
   }
 
   for (const resource of resources) {
@@ -92,27 +95,27 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
     // network - that way we won't risk being in an inconsistent state with
     // some parts of the page failing.
     if (!(await caches.match(resource))) {
-      return await fetch(event.request)
+      return await fetch(event.request);
     }
   }
 
-  const offlineShell = `/offline-plugin-app-shell-fallback/index.html`
-  return await caches.match(offlineShell)
-})
+  const offlineShell = '/offline-plugin-app-shell-fallback/index.html';
+  return await caches.match(offlineShell);
+});
 
-workbox.routing.registerRoute(navigationRoute)
+workbox.routing.registerRoute(navigationRoute);
 
 const messageApi = {
   setPathResources(event, { path, resources }) {
-    event.waitUntil(idbKeyval.set(`resources:${path}`, resources))
+    event.waitUntil(idbKeyval.set(`resources:${path}`, resources));
   },
 
   clearPathResources(event) {
-    event.waitUntil(idbKeyval.clear())
+    event.waitUntil(idbKeyval.clear());
   },
-}
+};
 
-self.addEventListener(`message`, event => {
-  const { gatsbyApi } = event.data
-  if (gatsbyApi) messageApi[gatsbyApi](event, event.data)
-})
+self.addEventListener('message', (event) => {
+  const { gatsbyApi } = event.data;
+  if (gatsbyApi) messageApi[gatsbyApi](event, event.data);
+});
