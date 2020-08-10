@@ -2,12 +2,12 @@
 templateKey: blog-post
 id: linked-list
 title: 链表
-slug: /2020/07/13/algorithm-intro/
+slug: /2020/07/13/algorithm-linkedlist/
 date: 2020-07-13T03:48:03.125Z
 description: linked list初步认识。
 headerImage: https://i.imgur.com/Ivxkc3R.jpg
 tags:
-  - algorithm
+  - algorithm, linklist
 ---
 
 
@@ -17,7 +17,7 @@ tags:
 
 ### linked list的use cases
 在迭代过程中，可以在序列中的任意位置高效的插入和移除节点。但是不适合access和find，
-因为access time是线性时间。所以不能够随机访问。
+因为access time是线性时间。特别是随机访问，是不会快的。
 
 
 
