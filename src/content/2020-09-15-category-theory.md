@@ -38,5 +38,29 @@ nothing代表着值的缺失；
 
 chain的规范有join和chain的方法接口
 
+### immutability
+是一种不会再改变value的结构。typescript里使用class和readonly
+来实现。有助于实现纯函数和减少side effects。
+但是容易产生冗余的code
+
+### optics
+解决了immutable的冗余code问题。
+它的本质就是对象的属性的get和set的一种方式。
+optics有两组： lenses和prisms
+lenses用于使用product类型，例如对象元组；
+prisms适用于sum类型，例如联合类型；
+### lenses
+一组函数获取和设置对象的值。
+lenses的特点是可以组合。
+
+
+### Prims
+和lenses相似，但是是设置和获取对象上的可选属性的
+### Lazy evaluation
+推迟表达式的执行到value真正需要的时候执行
+实现的方式：
+1. 可以使用proxy
+2. generator和iterable
+
 
 
