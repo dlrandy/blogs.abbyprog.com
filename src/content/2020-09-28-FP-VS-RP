@@ -1,0 +1,30 @@
+---
+templateKey: blog-post
+id: fp-vs-rp
+title: 分治
+slug: /2020/09/28/FP-VS-RP/
+date: 2020-09-28T03:48:03.125Z
+description: FP VS RP
+headerImage: https://i.imgur.com/Ivxkc3R.jpg
+tags:
+  - FP, RP
+---
+函数式编程关注于函数的解释，像无状态的函数和没有side effects。
+响应式编程则关注于变化的冒泡，比如事件流。
+
+FRP利用了FP和RP的范式
+
+RP需要将events想成values的stream。
+
+### Observable 模式
+Observable 序列模式，是observer模式和iterator模式的结合。
+它是数据的stream。
+
+### nodejs的回调接收两个参数
+error和result，不会抛出异常
+
+Ramda的的两个主要特色是composability和immtability。
+
+
+
+
