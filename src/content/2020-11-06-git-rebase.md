@@ -19,7 +19,7 @@ a---b---c---d---e---f  master
                \
                 j---k---l---m  feature-2
 ```
-但是feature-1rebase了master
+@ 但是feature-1rebase了master
 ``` bash
 
 a---b---c---d---e---f  master
@@ -36,7 +36,18 @@ a---b---c---d---e---f  master
                                \
                                 j'--k'--l'--m'  feature-2
 
+git rebase feature-1
 ```
+@ 但是feature-2 rebase了master
+``` bash
+a---b---c---d---e---f  master
+     \               \
+                      j'---k'---l'---m'  feature-2
+      g---h---i  feature-1
+               
+git rebase --onto master feature1 feature2
+```
+
 ### rebase 是如何工作的？
 在另一个base上重新进行commit。
 
@@ -53,4 +64,5 @@ merge总会产生新的commit。rebase是会重写提交的历史的。
 
 注意已经合并的分支，就不要再rebase了。
 
+**为了保证一条线，每个特性在merge前，都要进行rebase**
 
