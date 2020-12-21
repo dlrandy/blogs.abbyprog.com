@@ -27,6 +27,60 @@ child_process用于衍生和管理新的nodejs进程；
 worker_threads可以在不同的js实例之间共享内存，可以使用SharedArrayBuffer。或者
 使用postMessage。message passing的代价就是数据的序列化和反序列化。
 
+### nodejs overview
+``` javascript
+j
+a
+v   userland: app code，npm  modules
+a
+s
+c
+r    Core Nodejs APIs
+i
+p
+t
+
+---------------------------------------
+
+c    Nodejs bindings
+
+
++    etc. OpenSSL V8  libuv
+
+
++    Operating System
+
+```
+nodejs 本身是多线程的。
+libuv处理系统的抽象和IO，以及V8和第三方模块。相当于调度器。libuv线程池的大小默认是4，最大1024.UV_THREADPOOL_SIZE=num环境变量可以改变。
+
+> nodejs维护需要完成的异步任务，就会保持process运行。nodejs提供了不保活的API。
+不保活是.unref(),clearTimeout/Interval等;保活是ref();
+
+
+### nodejs event loop
+浏览器和nodejs的js都实现了event loop，相似的地方是在一个独立的stack里执行异步的task；浏览器的用于强化SPA，nodejs的则是用于server。
+
+> 当有一些事情发生的时候，操作系统会通知nodejs 程序。libuv苏醒，来理解要做什么。可以的话，message冒泡到nodejs APi里的code，然后触发app code里的回调。事件循环允许底层c++的实践跨越界限，运行js code。
+
+
+### Event loop 阶段
+事件循环有不同的阶段。一些阶段不直接处理app code。
+每个阶段维护着要执行的callback队列。callback根据app使用它们的方式，
+进入到不同的阶段。
+
+
+- [ ] Poll
+  poll相关执行IO相关的callback。app code最可能执行的阶段。主appcode开始运行的时候，就在这个阶段
+- [ ] Check
+  setImediate的callback执行
+- [ ] Close
+  EventEmitter的close事件的回调函数执行
+- [ ] Timers
+  setTimeout和setInterval的callback执行
+- [ ] pending
+  特殊的系统event运行在这个阶段，net.Socket TCPsocket 抛出ECONNREFUSED错误
+> 当一个阶段运行的时候，还会有两个特殊的微任务队列加入到他们。一个是process.nextTick的，另一个是promise。微任务队列的callback优先于阶段的回调。nextTick的回调优先于promise的回调。没有任务的时候，一般会在poll阶段。
 
 ### Event Loop tips
 1. event loop 一定要一直有事情做
