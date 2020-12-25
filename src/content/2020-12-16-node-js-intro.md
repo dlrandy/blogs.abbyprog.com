@@ -10,6 +10,92 @@ tags:
   - nodejs, js
 ---
 
+### nodejs 概览
+
+
+Unix的原则
+1. 小而美
+2. 每个程序只做好一件事
+
+小module好处
+1. 易于理解，使用和复用
+2. 易于测试和维护
+3. 也更适合在浏览器里使用
+
+
+
+简单和实用主义
+KISS原则(keep It simple,stupid)
+设计一定要简单，实现和接口也一样。更重要的是实现应该比接口简单。
+
+设计简单，而不是完美，特性丰富的软件是最佳实践：
+1. 花更少的工作量实现
+2. 花费更少的资源且交付更快
+3. 易于适配
+4. 易于维护和理解
+
+
+
+事件多路分用(Event demultiplexing)
+多路复用(multiplexing)是指将多个信号合并到一个里面，易于传输。
+多路分解/用(demultiplexing)信号分离给原来各自的组件
+
+Reactor 模式
+思想就是每个IO操作都有一个handler(callback)。
+1. app通过请求Event Demultiplexer生成IO操作。app也指定了handler，会在操作结束后调用。请求是非阻塞的，会立即将控制权返回给app。
+2. IO操作完成时，Event Demultiplexer将事件压入Event Queue。
+3. Event Loop迭代队列里的事物
+4. 对于每个事件调用handler
+5. handler是app code，它执行完成后，会把控制权给回Event Loop，同时handler执行的时候，也可能会请求新的异步操作，将新的事物加入到事件多路分用器里。
+6. Event Queue里的所有事物都被处理完了，Event Loop会阻塞在Event Demultiplexer这里，等待新的事件。
+
+
+
+Libuv
+nodejs的IO引擎。
+每个操作系统都自己的事件多路分用器。epoll(L)，kqueue(M)，iocp(W),
+所以IO操作是不同的。libuv主要使兼容各种主流系统。
+
+
+reactor pattern 和libuv是Nodejs的基础块，但是还需要三大组件
+1. bindings
+  包装和暴露libuv和其他底层的功能给JavaScript
+2. V8
+  js 执行引擎
+3.核心的JavaScript库
+  实现高级的nodejsAPI
+
+   nodejs
+ Core Javascript  Api
+ Bindings               V8
+ libuv
+
+
+
+
+nodejs配有模块系统
+> 最初nodejs是commonjs的(require)，现在支持ESmodule语法了(import)
+但是和浏览器的底层实现是不一样的，因为浏览器多是处理远程模块；nodejs
+目前都是本地系统的。
+
+
+nodejs可以完全的访问操作系统的服务。
+
+nodejs可以运行原生code。开发者模块可以绑定原生code的。N-Api接口很重要。
+> 大多数js VM支持Wasm，一种低级指令格式，可以将js外的其他语言编译成js VM
+可以理解的格式,就不用对接原生code了
+> V8执行js很快，但是相比原生还是有差距的。所以不适合那种重度CPU的应用(大量数据要处理的)；
+这一般使用原生code。
+
+nodejs有一个最小的内核，node的风格就是写小的简单的模块，且只暴露最小的功能。
+
+nodejs内部使用了reactor pattern；内部运行时的三大支柱：V8，libUV，core js library。
+
+
+
+### nodejs的异步行为来自于哪里？
+
+
 js正在向多线程语言过度。Atomics提供了不同线程之间的通信机制；SharedArrayBuffer可以多个线程读写。
 
 当一个函数调用另一个函数的时候，会在当前的stack里加一帧。
