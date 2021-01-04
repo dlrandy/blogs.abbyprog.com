@@ -10,8 +10,7 @@ tags:
   - nodejs, design,pattern,callbacks, control flow
 ---
 
-callback的异步控制流最大的问题在于回调地狱，大量的内嵌很难读和
-维护。
+callback的异步控制流最大的问题在于回调地狱，大量的内嵌很难读和维护,code 水平扩张，而不是垂直。
 
 异步函数的闭包和就地定义使得编程体验顺利一些，不需要在codebase里
 跳来跳去
@@ -39,7 +38,7 @@ asyncFoo(err => {
 ```
 
 ### callback最佳实践和控制流模式
-
+迭代异步操作的序列不像数组的forEach那么简单，一般是需要递归的。
 #### callback discipline
 写异步的code的时候，最重要的是不要滥用就地函数定义。
 回调一般是多和递归以及迭代一起使用。
@@ -107,11 +106,36 @@ function finish(){
 
 }
 ```
-### 回调函数的sequential模式
+### 回调函数的parallel-with-concurrency模式
 ``` javascript
 
-```
+const tasks = [];
+const concurrency = 2;
+let compoleted = 0;
+let index = 0;
+let running = 0;
+function next(){
+while(running < concurrency && index < tasks.length>){
+  const task = tasks[idnex++];
+  task(()=> {
+    if(++completed === tasks.length){
+      return finish();
+    }
 
+    running--;
+    next();
+  })
+
+  running++;
+}
+
+}
+
+next();
+
+function finish(){}
+```
+> 上面的适合那种事先知道任务数量的情况，或者任务是随着时间线性增长的。
 
 
 
