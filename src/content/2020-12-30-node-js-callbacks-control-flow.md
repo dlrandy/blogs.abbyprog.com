@@ -12,12 +12,6 @@ tags:
 
 callback的异步控制流最大的问题在于回调地狱，大量的内嵌很难读和维护,code 水平扩张，而不是垂直。
 
-异步函数的闭包和就地定义使得编程体验顺利一些，不需要在codebase里
-跳来跳去
-
-
-
-
 ### Callback Hell
 它的问题：
 1. 缩进层级太深,冗余的闭包和就地的回调定义，使得code难于阅读和理解
@@ -111,7 +105,7 @@ function finish(){
 
 const tasks = [];
 const concurrency = 2;
-let compoleted = 0;
+let completed = 0;
 let index = 0;
 let running = 0;
 function next(){
