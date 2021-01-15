@@ -36,6 +36,7 @@ Big  O 定义的是input  size --> spent time的时间复杂性；input size -->
 
 ![trend](https://i.imgur.com/n1zzzfV.png 'func')
 
+
 #### O(1)
 ``` javascript
 export function thePower(number, power) {
