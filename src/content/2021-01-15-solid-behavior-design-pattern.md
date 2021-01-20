@@ -58,7 +58,25 @@ tags:
 这个模式将遍历算法的实现和遍历操作的目标进行了解耦。
 
 > 实现迭代器模式的起点就是迭代器协议--定义产生值序列的接口。
+#### iterator
+实现了next方法的对象，next方法返回的对象是Iterator result包含两个属性{done, value}。当然iterator result也可以有别的属性。iterator除了有next方法之外，还可以有throw 和return方法。
 
+
+#### iterable 协议
+定义了对象返回iterator的标准方式。而返回iterator的对象叫做iterable。iterable通常是大量元素的容器。在JavaScript里iterable是实现了@@iterator方法的对象，也就是通过Symbol.iterator属性访问到的函数。
+
+#### generator 函数
+generator函数返回的对象既是iterator又是iterable。
+
+#### Async iterator
+async Iterator本质是一个stream 构件，因为他们可以用来一块一块的处理异步数据源。stream.Readable确实也实现了@@asyncIteraotr的方法。
+
+#### stream VS async iteraotrs
+1. streams是push的，意味着数据被stream推入内部buffer，使用的时候从buffer里取。Async Iterators默认是pull的，意味着数据只在用户需要的时候产生。
+2. stream更适合处理二进制数据，因为它们原生的提供内部buffering和backpressure。
+3. streams可以使用streamline，pipe组合；async Iterator并没有标准的组合方式。
+
+> EventEmitter是可以被迭代的；events.on(emitter, eventname)这个工具函数也是使用的async iterable.
 
 
 ### middleware 模式
