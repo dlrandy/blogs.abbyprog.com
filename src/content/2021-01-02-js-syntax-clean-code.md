@@ -77,3 +77,11 @@ js 里对于 0.1+0.2 的问题，可以使用两种方法解决
 
 1. 和-0.3 的绝对值小于 Number.EPSILON;
 2. 放大成整数倍进行比较
+
+### string
+
+字符串的 length 属性只关注的是 16 位编码单位(无符号的整数)，对于 32 位的 emoji，它是不可靠的，可能看着是一个表情，但是实际长度是 2.
+
+**string 实际上 16 位的无符号整数序列，每个整数对应着 UTF-16 的 codeunit**
+
+一个 Unicode code point 是一个字符，这个 code point 可以使用一个或者多个 UTF-16 的 code units。
