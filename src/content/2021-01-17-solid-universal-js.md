@@ -132,5 +132,18 @@ Universal 的好处
 已经加载的数据就不
 
 1. two pass rendering
+  使用react router的static context作为向量在React和server之间进行信息交换。
+  > 调用renderToString，将url和空的static context传递给React App;Ract 执行路由过程，选择要渲染的组件，将预加载的数据作为promise传递给static context， 此时得到一个不完整的html标记；server等待数据加载完成，形成新的static context，由renderToString再次将新的static context进行渲染得到完整的html标记；上述过程可以多次进行。
+
+  #### 方法的好处与坏处
+  好处：
+  更灵活的组织组件树；异步数据可以在组件树的级别上进行获取。
+  坏处：
+  renderToString成本不低，可能破事server执行多次渲染过程，而整体的过程非常慢。
 
 2. asyns pages
+以特殊的方式构造组件树的顶层
+> 1. app的root总是一个Router组件(server上StaticRouter，浏览器上则是BrowserRouter)
+> 2. app是router的唯一孩子
+> 3. APP的唯一孩子是react-router-dom的Switch组件
+> 4. Switch有多个Route组件
