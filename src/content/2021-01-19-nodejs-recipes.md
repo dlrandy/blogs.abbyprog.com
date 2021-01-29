@@ -173,3 +173,19 @@ Kubernetes对象是一个目的记录，一旦在kubernetes cluster上创建一�
 3. 使用message broker
 是将同步整个系统的消息的责任下发到每个service。使用message broker解耦消息的sender和receiver，可以实现集中化的发布订阅模式
 
+### child processes  VS Cluster VS worker threads
+child_process 是衍生新的进程，有自己的内存。进程之间使用IPC通信。
+
+### child process
+spawn可以是任何在命令行运行的命令；
+fork用于接模块路径，比spawn好在于可以进行父子通信。
+
+它的问题在于：
+1. 只有父子通信，孩子之间不能通信
+2. 孩子有独立的内存，意味着有时间和资源的成本
+
+### worker threads
+线程是共享内存的；可以线程间通信
+
+
+cluster主要是垂直扩展web server。是建在child_process模块之上。使用的child_process.fork()方法，主仆架构是主进程是转发进来的请求到child process以环带的心事
