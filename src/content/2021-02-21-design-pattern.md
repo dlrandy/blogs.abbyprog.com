@@ -307,8 +307,6 @@ DI
 一个文件里不该有多个抽象。
 #### 构造器模式
 使用单一的构造器，手动填充原型上的属性和方法
-
-#### class 模式
 ``` javascript
 function Book(title) {
  // Initialization Logic
@@ -318,6 +316,7 @@ Book.prototype.getNumberOfPages = function() { /* ... */ };
 Book.prototype.renderFrontCover= function() { /* ... */ };
 Book.prototype.renderBackCover=function () {}
 
+// 下面的写法会使得原型丢失constructor
 // Book.prototype = {
 //  getNumberOfPages() { /* ... */ },
 //  renderFrontCover() { /* ... */ },
@@ -329,17 +328,151 @@ const myBook = new Book();
 console.log(myBook instanceof Book, myBook)
 // 上面原型的两种方式都不会影响instanceof的判断
 ```
+##### Constructor模式继承
+需要手动的将原型继承父构造器的原型
+
+``` javascript
+function Animal() {}
+Animal.prototype = {
+ isAnimal: true,
+ grow() {}
+};
+
+function Monkey() {}
+Monkey.prototype = Object.create(Animal.prototype)
+
+Monkey.prototype.isMonkey = true;
+Monkey.prototype.screech = function() {};
+
+const monkey = new Monkey();
+
+console.log(monkey instanceof Animal,monkey instanceof Monkey);
+
+```
+
+#### class 模式
+类模式依赖新的定义语法，主要是替换构造器模式
+
+```javascript
+
+class Name {
+  static count = 0;
+  date ='';
+  #sex = '';
+
+ constructor(forename, surname) {
+ this.forename = forename;
+ this.surname = surname;
+ }
+ sayHello() {
+ return `My name is ${this.forename} ${this.surname}`;
+ }
+}
+
+
+class Animal {}
+class Tiger extends Animal {}
+
+
+```
+
+#### mixing-in class
+扩展不仅可以创建语义化子类，还可以提供mixins方法。js没有提供原生
+的mixin机制，要么是在定义之后增强prototype要么是继承mixins。
+
+
+
+```javascript
+// 强化原型
+const fooMixin = { foo() {} };
+const bazMixin = { baz() {} };
+
+class MyClass{}
+
+Object.assign(MyClass.prototype, fooMixin, bazMixin);
+
+// 上面的方式不允许MyClass覆盖自己mixin的方法
+
+// 继承
+
+const greetingsMixin  = Super => class extends Super {
+  hello() { return 'hello'; }
+  hi() { return 'hi'; }
+  heya() { return 'heya'; }
+}
+
+class Human{}
+class Programmer extends greetingsMixin(Human) {
+
+}
+
+// subclass factory helper
+
+function mixin(...mixins){
+  return mixins.reduce((base, mixin) => mixin(base), Object)
+}
+
+
+
+```
 
 #### Prototype模式
-
+需要使用对象作为其他对象的模板。即直接继承模板对象，不需要实例化。
+和Constructor模式和class模式相似，只不过是没有构造器。
 #### 揭示模块模式
+封装一些私有逻辑，然后暴露出一些公共的API。
+``` javascript
+const myModule = (() => {
+  const privateFoo = 1;
+  const privateBaz = 2;
 
+  return {
+    publicFoo(){},
+    publicBaz(){},
+  }
+})()
+```
 
 #### 传统模块模式
+一般是指一个对象带有很多的方法。
+#### 单类模式
+多用于一些工具功能，日志，缓存，全局Event Bus。
+```javascript
+const utils = new class {
+  constructor(){
+    this.#privateThing = 123;
+  }
+  utilityA() {}
+ utilityB() {}
+ utilityC() {}
+}
+utils.utilityA();
 
-#### 单例类模式
+```
 
-#### 
+
+### 计划与和谐
+决定哪个架构和模块设计模式是一个棘手的过程，因为在做决定的时候，项目的
+所有需求并不是清晰明显的。
+开发者不是无所不知的，也会有错误，自负和自我热情，如果没达成约定，会影响
+生产力可靠性和可维护性。
+所以要做到：
+1. 期望改变和调整
+  每个软件项目都会在某一个时刻，做一些变化。如果我们能持续的思考我们的
+  架构和模块化设计，那么我们就能杜绝未来的一些痛点，永远不要认为你创建了
+  一个真正的方案。相反，应该质疑你的判断，然后再次迭代。
+2. 和其他开发者咨询
+  和那些使用code人谈谈，分析意见和数据，然后做出明智决定。
+3. 避免货物崇拜和自负
+   注意货物崇拜和自负，特别是不认真考虑适用性继承做事的方式或者困于自负：
+   认为某个设计或者理论是完美的，只不过是因为我们个人知道或者热爱
+4. 对于和谐和一致性的偏见
+   在设计架构的时候，寻求和谐，因为在代码库里总是会有某些部分是不同的，
+   但是太多的内部不同又会迷惑维护者，从而破碎code的质量和可靠性。
+
+
+  
+
 
 
 
